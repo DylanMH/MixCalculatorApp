@@ -30,11 +30,11 @@ class MainScreen(GridLayout):
         super(MainScreen, self).__init__(**kwargs)
         self.cols = 2
         # Length Widget
-        self.add_widget(Label(text = "Length"))
+        self.add_widget(Label(text = "Length in Feet"))
         self.length_side = FloatInput(multiline = False, hint_text = str(0))
         self.add_widget(self.length_side)
         # Width Widget
-        self.add_widget(Label(text = "Width"))
+        self.add_widget(Label(text = "Width in Feet"))
         self.width_side = FloatInput(multiline = False, hint_text = str(0))
         self.add_widget(self.width_side)
         # Depth in Inches
@@ -42,7 +42,7 @@ class MainScreen(GridLayout):
         self.depth = FloatInput(multiline = False, hint_text = str(0))
         self.add_widget(self.depth)
         # Button Widget
-        self.button = Button(text = "CALCULATION")
+        self.button = Button(text = "TAKE OFF!!")
         self.button.bind(on_press = self.calculations)
         self.add_widget(self.button)
         # Area Widget
@@ -55,13 +55,8 @@ class MainScreen(GridLayout):
         area = length * width
         depth_in_feet = float(self.depth.text) / 12
         cubic_feet = area * depth_in_feet
-        mix_total = (cubic_feet * 145) / 2000
-        self.mix_total.text = 'Total Hot Mix Needed = ' + str(mix_total)
-
-
-
-
-
+        mix_total = round((cubic_feet * 145) / 2000, 2)
+        self.mix_total.text = 'Total Hot Mix Needed: ' + str(mix_total) + ' Tons'
        
 class MyApp(App):
     def build(self):
