@@ -10,7 +10,7 @@ from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.lang.builder import  Builder
 
-        
+# Only accept number values as text inputs        
 class FloatInput(TextInput):
         
     pat = re.compile('[^0-9]')
@@ -25,7 +25,7 @@ class FloatInput(TextInput):
             )
         return super().insert_text(s, from_undo=from_undo)
 
-
+# Main Class
 class PageLayout(GridLayout):
     def calculations(self):
         try:
@@ -40,9 +40,11 @@ class PageLayout(GridLayout):
             self.ids.button_output.text = "Please enter a valid number"
     pass
 
+# Build the mainwidget.kv file
 class MainWidgetApp(App):
     def build(self):
         return PageLayout()
 
+# Runs the app
 if __name__ == '__main__':
     MainWidgetApp().run()
