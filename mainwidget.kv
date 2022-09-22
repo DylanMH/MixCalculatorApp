@@ -1,0 +1,28 @@
+<PageLayout>:
+    rows: 4
+    cols: 2
+
+    Label:
+        id: length
+        text: "Length in Feet"
+    FloatInput:
+        id: length_input
+        hint_text: "0"
+    Label:
+        id: width
+        text: "Width in Feet"
+    FloatInput:
+        id: width_input
+        hint_text: "0"
+    Label:
+        id: depth
+        text: "Depth in Inches"
+    FloatInput:
+        id: depth_input
+        hint_text: "0"
+    Button:
+        text: "Take OFF!"
+        on_press: root.calculations()
+    Label:
+        id: button_output
+        text:         
