@@ -28,6 +28,7 @@ class FloatInput(TextInput):
 # Main Class
 class PageLayout(GridLayout):
     def calculations(self):
+        self.ids.button_output.text = "Total: "
         try:
             length = float(self.ids.length_input.text)
             width = float(self.ids.width_input.text)
@@ -35,7 +36,7 @@ class PageLayout(GridLayout):
             depth_in_feet = float(self.ids.depth_input.text) / 12
             cubic_feet = area * depth_in_feet
             mix_total = round((cubic_feet * 145) / 2000, 2)
-            self.ids.button_output.text = 'Total Hot Mix Needed: ' + str(mix_total) + ' Tons'
+            self.ids.button_output.text = self.ids.button_output.text + str(mix_total) + " tons!"
         except:
             self.ids.button_output.text = "Please enter a valid number"
     pass
