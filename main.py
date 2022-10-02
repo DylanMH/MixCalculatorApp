@@ -3,6 +3,7 @@ import kivy
 
 from kivymd.app import MDApp
 from kivymd.uix.floatlayout import FloatLayout
+from kivymd.uix.textfield import MDTextField
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
@@ -17,7 +18,7 @@ from kivy.config import Config
 Config.set('graphics', 'resizable', True)
 
 # Only accept number values as text inputs        
-class FloatInput(TextInput):
+class FloatInput(MDTextField):
     pat = re.compile('[^0-9]')
 
     def insert_text(self, substring, from_undo=False):
