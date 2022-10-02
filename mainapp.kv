@@ -1,3 +1,5 @@
+<CustomOneLineIconListItem>
+    icon: root.icon
 <FloatInput@MDTextField>
     required: True
     mode: "fill"
@@ -27,6 +29,11 @@ WindowManager:
 
 <MainScreen>:
     id: "main"
+    MDIcon:
+        icon: "hard-hat"
+        theme_text_color: "Custom"
+        text_color: 242, 120, 75, 1
+        pos_hint: {"x": .1, "y": .72}
     MDFloatLayout:
         Logo: # Logo
             text: "Construction Calculator"
@@ -55,6 +62,8 @@ WindowManager:
     id: "mix"
     BoxLayout:
         orientation: "vertical"
+        size: root.width, root.height
+        spacing: 20
 
         MainLabels:
             id: length
@@ -78,6 +87,10 @@ WindowManager:
             text: "Calculate Total"
             on_press: root.calculations()
             pos_hint: {'x': .35}
+        MainButton:
+            text: "Return To Main Screen"
+            on_press: root.manager.current = "main"
+            pos_hint: {"x": .27}
         MainLabels:
             id: button_output
             text: "Total: "
