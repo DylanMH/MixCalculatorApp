@@ -32,11 +32,14 @@ class FloatInput(MDTextField):
                 for s in substring.split('.', 1))
         return super().insert_text(s, from_undo=from_undo)
 
+class WindowManager(ScreenManager):
+    pass
+
 # Main Screen
 class MainScreen(Screen):
     pass
 
-# Page Layout and Functions of the MixPage
+# Page Layout and Functions of the Mix Page
 class MixLayout(Screen):
     def calculations(self):
         self.ids.button_output.text = "Total: "
@@ -49,13 +52,26 @@ class MixLayout(Screen):
             mix_total = round((cubic_feet * 145) / 2000, 2)
             self.ids.button_output.text = self.ids.button_output.text + str(mix_total) + " tons!"
         except:
-            self.ids.button_output.text = "Please enter a valid number"
+            self.ids.button_output.text = "Please enter a valid number!"
     pass
 
-class WindowManager(ScreenManager):
+# Page Layout and Functions for the Concrete Page
+class ConLayout(Screen):
+    def calculations(self):
+        self.ids.button_output.text = "Total: "
+        try:
+            length = float(self.ids.length_input.text)
+            width = float(self.ids.width_input.text)
+            area = length * width
+            thickness = float(self.ids.thickness_input.text) / 12
+            cubic_feet = thickness * area
+            total_yards = round(cubic_feet * .037, 2)
+            self.ids.button_output.text = self.ids.button_output.text + str(total_yards) + " yards!"
+        except:
+            self.ids.button_output.text = "Please enter a valid number!"
     pass
 
-# Build the mainwidget.kv file
+# Build the mainapp.kv file
 class MainApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
@@ -63,6 +79,7 @@ class MainApp(MDApp):
         sm = ScreenManager()
         sm.add_widget(MainScreen(name="main"))
         sm.add_widget(MixLayout(name="mix"))
+        sm.add_widget(ConLayout(name="concrete"))
         return sm
 
 # Runs the app
