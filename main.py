@@ -1,6 +1,5 @@
+from gettext import translation
 import re
-from turtle import onclick
-from unicodedata import name
 import kivy
 
 from kivy.clock import Clock
@@ -9,7 +8,7 @@ from kivymd.uix.floatlayout import FloatLayout
 from kivymd.uix.textfield import MDTextField
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.list import OneLineIconListItem
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
@@ -76,7 +75,7 @@ class ConLayout(Screen):
 
 # Build the mainapp.kv file
 class MainApp(MDApp):
-    sm = ScreenManager()
+    sm = ScreenManager(transition = NoTransition())
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Teal"
