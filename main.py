@@ -1,6 +1,7 @@
 import re
 import kivy
 
+from kivy.clock import Clock
 from kivymd.app import MDApp
 from kivymd.uix.floatlayout import FloatLayout
 from kivymd.uix.textfield import MDTextField
@@ -75,12 +76,16 @@ class ConLayout(Screen):
 class MainApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Orange"
-        sm = ScreenManager()
-        sm.add_widget(MainScreen(name="main"))
-        sm.add_widget(MixLayout(name="mix"))
-        sm.add_widget(ConLayout(name="concrete"))
-        return sm
+        self.theme_cls.primary_palette = "Teal"
+        self.sm = ScreenManager()
+        self.sm.add_widget(MainScreen(name="main"))
+        self.sm.add_widget(MixLayout(name="mix"))
+        self.sm.add_widget(ConLayout(name="concrete"))
+        return self.sm
+
+    def change_screen(self, screen):
+        self.sm.current = screen
+
 
 # Runs the app
 if __name__ == '__main__':

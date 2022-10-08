@@ -33,11 +33,12 @@ WindowManager:
 
 # Main Screen Layout
 <MainScreen>:
-    id: "main"
+    name: "main"
     MDIcon:
         icon: "hard-hat"
         theme_text_color: 'Custom'
-        text_color: 1, 165/255, 0, 1
+        #Teal Color
+        text_color: 0/255, 128/255, 128/255, 1 
         pos_hint: {"x": dp(0.08), "y": dp(0.71)}
         font_size: 45
     MDFloatLayout:
@@ -63,7 +64,7 @@ WindowManager:
                     
 # Layout of Mix Screen
 <MixLayout>:
-    id: "mix"
+    name: "mix"
     # Resets users previously inputed values
     on_pre_enter:
         length_input.text = ""
@@ -72,9 +73,10 @@ WindowManager:
         button_output.text = "Total: "
     MDBoxLayout:
         orientation: "vertical"
-        size: root.width, root.height
         spacing: dp(20)
-
+        MDTopAppBar:
+            title: "Mix Calculations"
+            left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
         MainLabels:
             id: length
             text: "Length in Feet"
@@ -90,21 +92,22 @@ WindowManager:
             text: "Depth in Inches"
         FloatInput:
             id: depth_input
-        MainButton:
-            text: "Calculate Total"
-            on_press: root.calculations()
-            pos_hint: {'x': dp(0.35)}
-        MainButton:
-            text: "Return To Main Screen"
-            on_press: root.manager.current = "main"
-            pos_hint: {"x": dp(0.27)}
-        MainLabels:
-            id: button_output
-            text: "Total: "
+
+        MDFloatLayout:
+            spacing: dp(15)
+            MainButton:
+                text: "Calculate Total"
+                on_press: root.calculations()
+                pos_hint: {'x': .15, 'y': .2}
+            MainLabels:
+                font_size: sp(25)
+                pos_hint: {'x': .23, 'y': .15}
+                id: button_output
+                text: "Total: "
 
 # Concrete Page Layout
 <ConLayout>:
-    id: "concrete"
+    name: "concrete"
     # Resets users previously inputed values
     on_pre_enter:
         length_input.text = ""
@@ -116,6 +119,9 @@ WindowManager:
         size: root.width, root.height
         spacing: dp(20)
 
+        MDTopAppBar:
+            title: "Concrete Calculations"
+            left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
         MainLabels:
             id: length
             text: "Length in Feet"
@@ -131,14 +137,14 @@ WindowManager:
             text: "Thickness in Inches"
         FloatInput:
             id: thickness_input
-        MainButton:
-            text: "Calculate Total"
-            on_press: root.calculations()
-            pos_hint: {'x': dp(0.35)}
-        MainButton:
-            text: "Return to Main Screen"
-            on_press: root.manager.current = "main"
-            pos_hint: {"x": dp(0.27)}
-        MainLabels:
-            id: button_output
-            text: "Total: "
+        MDFloatLayout:
+            spacing: dp(15)
+            MainButton:
+                text: "Calculate Total"
+                on_press: root.calculations()
+                pos_hint: {'x': .15, 'y': .2}
+            MainLabels:
+                font_size: sp(25)
+                pos_hint: {'x': .23, 'y': .15}
+                id: button_output
+                text: "Total: "
