@@ -1,4 +1,6 @@
 import re
+from turtle import onclick
+from unicodedata import name
 import kivy
 
 from kivy.clock import Clock
@@ -74,17 +76,24 @@ class ConLayout(Screen):
 
 # Build the mainapp.kv file
 class MainApp(MDApp):
+    sm = ScreenManager()
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Teal"
-        self.sm = ScreenManager()
         self.sm.add_widget(MainScreen(name="main"))
         self.sm.add_widget(MixLayout(name="mix"))
         self.sm.add_widget(ConLayout(name="concrete"))
-        return self.sm
+        return MainApp.sm
 
     def change_screen(self, screen):
         self.sm.current = screen
+        if self.sm.current == 'main':
+            self.theme_cls.theme_style = "Dark"
+            self.theme_cls.primary_palette = "Teal"
+        elif self.sm.current == 'mix' or self.sm.current == 'concrete':
+            self.theme_cls.theme_style = "Dark"
+            self.theme_cls.primary_palette = "Orange"
+
 
 
 # Runs the app
