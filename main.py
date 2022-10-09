@@ -1,13 +1,21 @@
-from gettext import translation
+__version__ = 1.0
 import re
+
 import kivy
 
-from kivy.clock import Clock
+import kivymd
+
+import os
+kivy.require('2.1.0')
+
+#KivyMD Imports
 from kivymd.app import MDApp
 from kivymd.uix.floatlayout import FloatLayout
 from kivymd.uix.textfield import MDTextField
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.list import OneLineIconListItem
+#Kivy Imports
+from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
@@ -17,9 +25,12 @@ from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.lang.builder import  Builder
 from kivy.uix.floatlayout import FloatLayout
+from kivy.metrics import sync_pixel_scale, dispatch_pixel_scale
+os.environ['KIVY_METRICS_DENSITY'] = '2'
+os.environ['KIVY_DPI'] = ''
 
-from kivy.config import Config
-Config.set('graphics', 'resizable', True)
+# Import comic font
+#LabelBase.register(name='mainFont', fn_regular="fonts\comic.ttf")
 
 # Only accept number values as text inputs        
 class FloatInput(MDTextField):
@@ -44,7 +55,6 @@ class MainScreen(Screen):
 # Page Layout and Functions of the Mix Page
 class MixLayout(Screen):
     def calculations(self):
-        self.ids.button_output.text = "Total: "
         try:
             length = float(self.ids.length_input.text)
             width = float(self.ids.width_input.text)
@@ -52,15 +62,15 @@ class MixLayout(Screen):
             depth_in_feet = float(self.ids.depth_input.text) / 12
             cubic_feet = area * depth_in_feet
             mix_total = round((cubic_feet * 145) / 2000, 2)
-            self.ids.button_output.text = self.ids.button_output.text + str(mix_total) + " tons!"
+            self.ids.button_output.text = str(mix_total) + " Tons!"
         except:
-            self.ids.button_output.text = "Please enter a valid number!"
+            self.ids.button_output.text = "Calculate Total"
     pass
 
 # Page Layout and Functions for the Concrete Page
 class ConLayout(Screen):
     def calculations(self):
-        self.ids.button_output.text = "Total: "
+        self.ids.button_output.text = ""
         try:
             length = float(self.ids.length_input.text)
             width = float(self.ids.width_input.text)
@@ -68,22 +78,24 @@ class ConLayout(Screen):
             thickness = float(self.ids.thickness_input.text) / 12
             cubic_feet = thickness * area
             total_yards = round(cubic_feet * .037, 2)
-            self.ids.button_output.text = self.ids.button_output.text + str(total_yards) + " yards!"
+            self.ids.button_output.text = str(total_yards) + " Yards!"
         except:
-            self.ids.button_output.text = "Please enter a valid number!"
+            self.ids.button_output.text = "Calculate Total"
     pass
 
 # Build the mainapp.kv file
 class MainApp(MDApp):
+    # Builds the window manager
     sm = ScreenManager(transition = NoTransition())
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Teal"
-        self.sm.add_widget(MainScreen(name="main"))
+        self.sm.add_widget(MainScreen(name="main", size_hint = (.4, .4)))
         self.sm.add_widget(MixLayout(name="mix"))
         self.sm.add_widget(ConLayout(name="concrete"))
         return MainApp.sm
 
+    # Allows the changing of screens with header buttons and also changes the theme styles of specific windows
     def change_screen(self, screen):
         self.sm.current = screen
         if self.sm.current == 'main':
