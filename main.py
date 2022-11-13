@@ -16,7 +16,7 @@ from kivymd.icon_definitions import md_icons
 from kivymd.uix.list import OneLineIconListItem
 #Kivy Imports
 from kivy.core.text import LabelBase
-from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
@@ -26,14 +26,16 @@ from kivy.uix.widget import Widget
 from kivy.lang.builder import  Builder
 from kivy.uix.floatlayout import FloatLayout
 from kivy.metrics import sync_pixel_scale, dispatch_pixel_scale
+from kivy.properties import ColorProperty
+from kivy.core.window import Window
 os.environ['KIVY_METRICS_DENSITY'] = '2'
 os.environ['KIVY_DPI'] = ''
 
-# Import comic font
-#LabelBase.register(name='mainFont', fn_regular="fonts\comic.ttf")
+Window.size = 300, 500
 
 # Only accept number values as text inputs        
 class FloatInput(MDTextField):
+    box_color = ColorProperty('orange')
     pat = re.compile('[^0-9]')
 
     def insert_text(self, substring, from_undo=False):
@@ -86,7 +88,8 @@ class ConLayout(Screen):
 # Build the mainapp.kv file
 class MainApp(MDApp):
     # Builds the window manager
-    sm = ScreenManager(transition = NoTransition())
+    sm = ScreenManager()
+    window_size = Window.size
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Teal"

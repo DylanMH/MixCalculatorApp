@@ -4,6 +4,12 @@
 # // Custom Design Properties for default KivyMD
 # Custom input properties for text input
 <FloatInput@MDTextField>
+    canvas.after:
+        Color:
+            rgba: root.box_color if not self.focus else (0, 1, 0, 0)
+        Line:
+            width: dp(1)
+            rectangle:(*self.pos, *self.size)
     required: True
     mode: "fill"
     halign: "center"
@@ -13,14 +19,12 @@
 # Custom Label Properties For The Dimension Labels
 <MainLabels@MDLabel>
     font_size: dp(18)
-    #font_name: 'mainFont'
     halign: "center"
     theme_text_color: "Primary"
 
 # Rounded Buttons
 <MainButton@MDRoundFlatButton>
     font_size: dp(30)
-    #font_name: "mainFont"
 
 # end of custom properties //
 
@@ -36,39 +40,33 @@ WindowManager:
 # Main Screen Layout
 <MainScreen>:
     name: "main"
-    MDFloatLayout:
-        MDIcon:
-            icon: "hard-hat"
-            theme_text_color: 'Custom'
-            #Teal Color
-            text_color: 0/255, 128/255, 128/255, 1 
-            pos_hint: {"x": dp(0.75), "y": dp(1.3)}
-            font_size: 45
-        MDLabel: # Logo Text
-            text: "Construction Calculator"
-            size_hint: dp(2), None
-            pos_hint: {"x": dp(.18), "y": dp(1.15)}
-            font_size: '25dp'
+    AnchorLayout:
+        anchor_x: 'center'
         MDGridLayout:
-            rows: 3
-            cols: 1
+            rows: 5
             spacing: 20
-            pos_hint: {"x": dp(.10), "y": dp(.2)}
-            padding: 0, 0, 0, 0
+            height: self.minimum_height
+            pos_hint: {'center_x': .5}
+            MDIcon:
+                icon: "hard-hat"
+                theme_text_color: 'Custom'
+                #Teal Color
+                text_color: 0/255, 128/255, 128/255, 1
+                font_size: 45
+            MDLabel:
+                text: "Construction Calculator"
+                font_size: '25'
             MainButton: # Mix Button
                 text: "Calculate Mix"
                 size_hint: dp(1), None
-                #pos_hint: {"x": dp(0.26), "y": dp(.9)}
                 on_press: app.change_screen('mix')
             MainButton: # Concrete Button
                 text: "Calculate Concrete"
                 size_hint: dp(1), None
-                #pos_hint: {"x": dp(0.1), "y": dp(0.6)}
                 on_press: app.change_screen('concrete')
             MainButton: # Close App Button
                 text: "Exit"
                 size_hint: dp(1), None
-                #pos_hint: {"x": dp(0.33), "y": dp(0.3)}
                 on_press: app.stop()                 
 # Layout of Mix Screen
 <MixLayout>:
@@ -101,28 +99,20 @@ WindowManager:
         FloatInput:
             id: depth_input
 
-        MDFloatLayout:
-            spacing: dp(15)
-            MainButton:
-                id: button_output
-                text: "Calculate Total"
-                on_press: root.calculations()
-                pos_hint: {'x': .15, 'y': .2}
-            #MainLabels:
-                #font_size: sp(25)
-                #pos_hint: {'x': .23, 'y': .15}
-                #id: button_output
-                #text: "Total: "
-
+        MainButton:
+            id: button_output
+            text: "Calculate Total"
+            on_press: root.calculations()
+            pos_hint: {'center_x': .5}
 # Concrete Page Layout
 <ConLayout>:
     name: "concrete"
-    # Resets users previously inputed values
     on_pre_enter:
         length_input.text = ""
         width_input.text = ""
         thickness_input.text = ""
         button_output.text = "Calculate Total"
+    # Resets users previously inputed values
     MDBoxLayout:
         orientation: "vertical"
         spacing: dp(20)
@@ -145,15 +135,9 @@ WindowManager:
             text: "Thickness in Inches"
         FloatInput:
             id: thickness_input
-        MDFloatLayout:
-            spacing: dp(15)
-            MainButton:
-                id: button_output
-                text: "Calculate Total"
-                on_press: root.calculations()
-                pos_hint: {'x': .10, 'y': .2}
-            #MainLabels:
-                #font_size: sp(25)
-                #pos_hint: {'x': .23, 'y': .15}
-                #id: button_output
-                #text: "Total: "
+        MainButton:
+            id: button_output
+            text: "Calculate Total"
+            on_press: root.calculations()
+            pos_hint: {'center_x': .5}
+            #pos_hint: {'x': dp(app.window_size[0] / 100) * .04}
