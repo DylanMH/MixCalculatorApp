@@ -29,7 +29,7 @@ from kivy.metrics import sync_pixel_scale, dispatch_pixel_scale
 from kivy.properties import ColorProperty
 from kivy.core.window import Window
 
-Window.size = 300, 600
+
 
 # Only accept number values as text inputs        
 class FloatInput(MDTextField):
@@ -49,7 +49,7 @@ class WindowManager(ScreenManager):
     pass
 
 # Main Screen
-class MainScreen(Screen):
+class MenuScreen(Screen):
     pass
 
 # Page Layout and Functions of the Mix Page
@@ -87,11 +87,10 @@ class ConLayout(Screen):
 class MainApp(MDApp):
     # Builds the window manager
     sm = ScreenManager()
-    window_size = Window.size
     def build(self):
-        self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Teal"
-        self.sm.add_widget(MainScreen(name="main", size_hint = (.4, .4)))
+        self.theme_cls.theme_style = 'Dark'
+        self.theme_cls.primary_palette = 'Amber'
+        self.sm.add_widget(MenuScreen(name="main"))
         self.sm.add_widget(MixLayout(name="mix"))
         self.sm.add_widget(ConLayout(name="concrete"))
         return MainApp.sm
@@ -99,12 +98,12 @@ class MainApp(MDApp):
     # Allows the changing of screens with header buttons and also changes the theme styles of specific windows
     def change_screen(self, screen):
         self.sm.current = screen
-        if self.sm.current == 'main':
-            self.theme_cls.theme_style = "Dark"
-            self.theme_cls.primary_palette = "Teal"
-        elif self.sm.current == 'mix' or self.sm.current == 'concrete':
-            self.theme_cls.theme_style = "Dark"
-            self.theme_cls.primary_palette = "Orange"
+        if self.sm.current == "main":
+            self.theme_cls.theme_style = 'Dark'
+            self.theme_cls.primary_palette = 'Amber'
+        else:
+            self.theme_cls.theme_style = 'Dark'
+            self.theme_cls.primary_palette = 'Orange'
 
 
 

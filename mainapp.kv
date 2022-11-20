@@ -30,7 +30,7 @@
 
 # Screen Manager
 WindowManager:
-    MainScreen:
+    MenuScreen:
         name: "main"
     MixLayout:
         name: "mix"
@@ -38,36 +38,26 @@ WindowManager:
         name: "concrete"
 
 # Main Screen Layout
-<MainScreen>:
+<MenuScreen>:
     name: "main"
     MDGridLayout:
         cols: 1
-        row_default_height: '50'
-        height: self.minimum_height
-        spacing: 15
-        pos_hint: {'center_x': .5, 'y': 1}
-        MDIcon:
-            icon: "hard-hat"
-            theme_text_color: 'Custom'
-            text_color: 0/255, 128/255, 128/255, 1
-            font_size: 50
-            pos_hint: {'center_x': .5}
-        MDLabel:
-            text: "Construction Calculator"
-            font_size: '25'
-            size_hint: dp(1), None
-            halign: 'center'
-        MainButton: # Mix Button
-            text: "Calculate Mix"
-            on_press: app.change_screen('mix')
+        spacing: dp(50)
+        size_hint: dp(1), None
+        pos_hint: {'center_x': .5, 'top': 1}
+        MDTopAppBar:
+            title: "Construction Calculator"
+            right_action_items:[["hard-hat"]]
+        MainButton:
+            text: "Mix Calculator"
+            on_press: app.change_screen("mix")
             size_hint: dp(1), None
             pos_hint: {'center_x': .5}
-        MainButton: # Concrete Button
-            text: "Calculate Concrete"
-            on_press: app.change_screen('concrete')
-            size_hint: dp(1), None 
+        MainButton:
+            text: "Concrete Calculator"
+            on_press: app.change_screen("concrete")
+            size_hint: dp(1), None
             pos_hint: {'center_x': .5}
-
 # Layout of Mix Screen
 <MixLayout>:
     name: "mix"
@@ -80,7 +70,7 @@ WindowManager:
     MDBoxLayout:
         orientation: "vertical"
         spacing: dp(20)
-
+        padding: 0, 0, 0, 5
         MDTopAppBar:
             title: "Mix Calculations"
             left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
@@ -99,7 +89,6 @@ WindowManager:
             text: "Depth in Inches"
         FloatInput:
             id: depth_input
-
         MainButton:
             id: button_output
             text: "Calculate Total"
@@ -117,7 +106,7 @@ WindowManager:
     MDBoxLayout:
         orientation: "vertical"
         spacing: dp(20)
-
+        padding: 0, 0, 0, 5
         MDTopAppBar:
             title: "Concrete Calculations"
             left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
@@ -141,4 +130,3 @@ WindowManager:
             text: "Calculate Total"
             on_press: root.calculations()
             pos_hint: {'center_x': .5}
-            #pos_hint: {'x': dp(app.window_size[0] / 100) * .04}
