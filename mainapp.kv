@@ -40,34 +40,34 @@ WindowManager:
 # Main Screen Layout
 <MainScreen>:
     name: "main"
-    AnchorLayout:
-        anchor_x: 'center'
-        MDGridLayout:
-            rows: 5
-            spacing: 20
-            height: self.minimum_height
+    MDGridLayout:
+        cols: 1
+        row_default_height: '50'
+        height: self.minimum_height
+        spacing: 15
+        pos_hint: {'center_x': .5, 'y': 1}
+        MDIcon:
+            icon: "hard-hat"
+            theme_text_color: 'Custom'
+            text_color: 0/255, 128/255, 128/255, 1
+            font_size: 50
             pos_hint: {'center_x': .5}
-            MDIcon:
-                icon: "hard-hat"
-                theme_text_color: 'Custom'
-                #Teal Color
-                text_color: 0/255, 128/255, 128/255, 1
-                font_size: 45
-            MDLabel:
-                text: "Construction Calculator"
-                font_size: '25'
-            MainButton: # Mix Button
-                text: "Calculate Mix"
-                size_hint: dp(1), None
-                on_press: app.change_screen('mix')
-            MainButton: # Concrete Button
-                text: "Calculate Concrete"
-                size_hint: dp(1), None
-                on_press: app.change_screen('concrete')
-            MainButton: # Close App Button
-                text: "Exit"
-                size_hint: dp(1), None
-                on_press: app.stop()                 
+        MDLabel:
+            text: "Construction Calculator"
+            font_size: '25'
+            size_hint: dp(1), None
+            halign: 'center'
+        MainButton: # Mix Button
+            text: "Calculate Mix"
+            on_press: app.change_screen('mix')
+            size_hint: dp(1), None
+            pos_hint: {'center_x': .5}
+        MainButton: # Concrete Button
+            text: "Calculate Concrete"
+            on_press: app.change_screen('concrete')
+            size_hint: dp(1), None 
+            pos_hint: {'center_x': .5}
+
 # Layout of Mix Screen
 <MixLayout>:
     name: "mix"
@@ -80,6 +80,7 @@ WindowManager:
     MDBoxLayout:
         orientation: "vertical"
         spacing: dp(20)
+
         MDTopAppBar:
             title: "Mix Calculations"
             left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]

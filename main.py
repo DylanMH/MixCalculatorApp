@@ -28,10 +28,8 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.metrics import sync_pixel_scale, dispatch_pixel_scale
 from kivy.properties import ColorProperty
 from kivy.core.window import Window
-os.environ['KIVY_METRICS_DENSITY'] = '2'
-os.environ['KIVY_DPI'] = ''
 
-Window.size = 300, 500
+Window.size = 300, 600
 
 # Only accept number values as text inputs        
 class FloatInput(MDTextField):
