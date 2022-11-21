@@ -20,12 +20,7 @@
 <MainLabels@MDLabel>
     font_size: dp(18)
     halign: "center"
-    theme_text_color: "Primary"
-
-# Rounded Buttons
-<MainButton@MDRoundFlatButton>
-    font_size: dp(30)
-
+    theme_text_color: "Secondary"
 # end of custom properties //
 
 # Screen Manager
@@ -40,24 +35,31 @@ WindowManager:
 # Main Screen Layout
 <MenuScreen>:
     name: "main"
-    MDGridLayout:
-        cols: 1
-        spacing: dp(50)
-        size_hint: dp(1), None
-        pos_hint: {'center_x': .5, 'top': 1}
+    MDBoxLayout:
+        spacing: dp(100)
+        orientation: "vertical"
+        height: self.minimum_height
+        size_hint: 1, None
+        pos_hint: {'top': 1}
         MDTopAppBar:
             title: "Construction Calculator"
             right_action_items:[["hard-hat"]]
-        MainButton:
+        MDRoundFlatIconButton:
             text: "Mix Calculator"
+            icon: "road"
             on_press: app.change_screen("mix")
-            size_hint: dp(1), None
             pos_hint: {'center_x': .5}
-        MainButton:
+            font_size: dp(30)
+            size_hint: 1, None
+            padding: 5
+        MDRoundFlatIconButton:
             text: "Concrete Calculator"
+            icon: "wall"
             on_press: app.change_screen("concrete")
-            size_hint: dp(1), None
             pos_hint: {'center_x': .5}
+            font_size: dp(30)
+            size_hint: 1, None
+            padding: 5
 # Layout of Mix Screen
 <MixLayout>:
     name: "mix"
@@ -74,6 +76,7 @@ WindowManager:
         MDTopAppBar:
             title: "Mix Calculations"
             left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
+            right_action_items: [["road"]]
         MainLabels:
             id: length
             text: "Length in Feet"
@@ -89,11 +92,13 @@ WindowManager:
             text: "Depth in Inches"
         FloatInput:
             id: depth_input
-        MainButton:
+        MDRoundFlatIconButton:
+            icon: "calculator-variant"
             id: button_output
             text: "Calculate Total"
             on_press: root.calculations()
             pos_hint: {'center_x': .5}
+            font_size: dp(30)
 # Concrete Page Layout
 <ConLayout>:
     name: "concrete"
@@ -110,6 +115,7 @@ WindowManager:
         MDTopAppBar:
             title: "Concrete Calculations"
             left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
+            right_action_items: [["wall"]]
         MainLabels:
             id: length
             text: "Length in Feet"
@@ -125,8 +131,10 @@ WindowManager:
             text: "Thickness in Inches"
         FloatInput:
             id: thickness_input
-        MainButton:
+        MDRoundFlatIconButton:
+            icon: "calculator-variant"
             id: button_output
             text: "Calculate Total"
             on_press: root.calculations()
             pos_hint: {'center_x': .5}
+            font_size: dp(30)

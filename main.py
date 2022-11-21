@@ -28,6 +28,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.metrics import sync_pixel_scale, dispatch_pixel_scale
 from kivy.properties import ColorProperty
 from kivy.core.window import Window
+from kivy.clock import Clock
 
 
 
@@ -88,11 +89,11 @@ class MainApp(MDApp):
     # Builds the window manager
     sm = ScreenManager()
     def build(self):
-        self.theme_cls.theme_style = 'Dark'
-        self.theme_cls.primary_palette = 'Amber'
         self.sm.add_widget(MenuScreen(name="main"))
         self.sm.add_widget(MixLayout(name="mix"))
         self.sm.add_widget(ConLayout(name="concrete"))
+        self.theme_cls.theme_style = 'Dark'
+        self.theme_cls.primary_palette = 'Amber'
         return MainApp.sm
 
     # Allows the changing of screens with header buttons and also changes the theme styles of specific windows
@@ -104,8 +105,6 @@ class MainApp(MDApp):
         else:
             self.theme_cls.theme_style = 'Dark'
             self.theme_cls.primary_palette = 'Orange'
-
-
 
 # Runs the app
 if __name__ == '__main__':
