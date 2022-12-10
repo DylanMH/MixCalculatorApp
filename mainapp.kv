@@ -25,7 +25,7 @@
 <MenuButtons@MDRoundFlatIconButton>
     pos_hint: {'center_x': .5}
     font_size: dp(30)
-    size_hint: .75, None
+    size_hint: .9, None
     padding: 2
 
 # end of custom properties //
@@ -53,7 +53,8 @@ WindowManager:
         orientation: "vertical"
         height: self.minimum_height
         size_hint: 1, None
-        pos_hint: {'top': 1}
+        pos_hint: {"top": 1}
+        spacing: dp(35)
         MDTopAppBar:
             title: "Construction Calculator"
             right_action_items:[["hard-hat"]]
@@ -97,17 +98,17 @@ WindowManager:
             right_action_items: [["road"]]
         MainLabels:
             id: length
-            text: "Length in Feet"
+            text: "Length (ft)"
         FloatInput:
             id: length_input
         MainLabels:
             id: width
-            text: "Width in Feet"
+            text: "Width (ft)"
         FloatInput:
             id: width_input
         MainLabels:
             id: depth
-            text: "Depth in Inches"
+            text: "Depth (inches)"
         FloatInput:
             id: depth_input
         MainLabels:
@@ -141,17 +142,17 @@ WindowManager:
             right_action_items: [["wall"]]
         MainLabels:
             id: length
-            text: "Length in Feet"
+            text: "Length (ft)"
         FloatInput:
             id: length_input
         MainLabels:
             id: width
-            text: "Width in Feet"
+            text: "Width (ft)"
         FloatInput:
             id: width_input
         MainLabels:
             id: thickness
-            text: "Thickness in Inches"
+            text: "Thickness (inches)"
         FloatInput:
             id: thickness_input
         MDRoundFlatIconButton:
@@ -180,17 +181,17 @@ WindowManager:
             right_action_items: [["image-filter-hdr"]]
         MainLabels:
             id: length
-            text: "Length in Feet"
+            text: "Length (ft)"
         FloatInput:
             id: length_input
         MainLabels:
             id: width
-            text: "Width in Feet"
+            text: "Width (ft)"
         FloatInput:
             id: width_input
         MainLabels:
             id: thickness
-            text: "Depth in Inches"
+            text: "Depth (inches)"
         FloatInput:
             id: depth_input
         MDRoundFlatIconButton:
@@ -229,7 +230,7 @@ WindowManager:
             id: width_input
         MainLabels:
             id: rebar_grid
-            text: "Rebar Grid in Inches"
+            text: "Rebar Grid (inches)"
         FloatInput:
             id: grid_input
         MainLabels:
@@ -258,7 +259,7 @@ WindowManager:
         MDTopAppBar:
             title: "Total Dowel Calculations"
             left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
-            right_action_items: [["grid"]]
+            right_action_items: [["dots-square"]]
         MainLabels:
             id: length
             text: "Length of Slab (ft)"
