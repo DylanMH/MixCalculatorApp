@@ -21,6 +21,13 @@
     font_size: dp(18)
     halign: "center"
     theme_text_color: "Secondary"
+
+<MenuButtons@MDRoundFlatIconButton>
+    pos_hint: {'center_x': .5}
+    font_size: dp(30)
+    size_hint: .75, None
+    padding: 2
+
 # end of custom properties //
 
 # Screen Manager
@@ -31,6 +38,12 @@ WindowManager:
         name: "mix"
     ConLayout:
         name: "concrete"
+    RockLayout:
+        name: "baserock"
+    RebarLayout:
+        name: "rebar"
+    DowelLayout:
+        name: "dowel"
 
 # Main Screen Layout
 <MenuScreen>:
@@ -44,22 +57,26 @@ WindowManager:
         MDTopAppBar:
             title: "Construction Calculator"
             right_action_items:[["hard-hat"]]
-        MDRoundFlatIconButton:
-            text: "Mix Calculator"
+        MenuButtons:
+            text: "Asphalt Calculator"
             icon: "road"
             on_press: app.change_screen("mix")
-            pos_hint: {'center_x': .5}
-            font_size: dp(30)
-            size_hint: 1, None
-            padding: 5
-        MDRoundFlatIconButton:
+        MenuButtons:
             text: "Concrete Calculator"
             icon: "wall"
             on_press: app.change_screen("concrete")
-            pos_hint: {'center_x': .5}
-            font_size: dp(30)
-            size_hint: 1, None
-            padding: 5
+        MenuButtons:
+            text: "BaseRock Calculator"
+            icon: "image-filter-hdr"
+            on_press: app.change_screen("baserock")
+        MenuButtons:
+            text: "Rebar Calculator"
+            icon: "grid"
+            on_press: app.change_screen("rebar")
+        MenuButtons:
+            text: "Dowel Calculator"
+            icon: "dots-square"
+            on_press: app.change_screen("dowel")
 # Layout of Mix Screen
 <MixLayout>:
     name: "mix"
@@ -68,13 +85,14 @@ WindowManager:
         length_input.text = ""
         width_input.text = ""
         depth_input.text = ""
+        density_input.text = "145"
         button_output.text = "Calculate Total"
     MDBoxLayout:
         orientation: "vertical"
         spacing: dp(20)
         padding: 0, 0, 0, 5
         MDTopAppBar:
-            title: "Mix Calculations"
+            title: "Asphalt Calculations"
             left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
             right_action_items: [["road"]]
         MainLabels:
@@ -92,6 +110,11 @@ WindowManager:
             text: "Depth in Inches"
         FloatInput:
             id: depth_input
+        MainLabels:
+            id: density
+            text: "Asphalt Density"
+        FloatInput:
+            id: density_input
         MDRoundFlatIconButton:
             icon: "calculator-variant"
             id: button_output
@@ -102,12 +125,12 @@ WindowManager:
 # Concrete Page Layout
 <ConLayout>:
     name: "concrete"
+    # Resets users previously inputed values
     on_pre_enter:
         length_input.text = ""
         width_input.text = ""
         thickness_input.text = ""
         button_output.text = "Calculate Total"
-    # Resets users previously inputed values
     MDBoxLayout:
         orientation: "vertical"
         spacing: dp(20)
@@ -131,6 +154,126 @@ WindowManager:
             text: "Thickness in Inches"
         FloatInput:
             id: thickness_input
+        MDRoundFlatIconButton:
+            icon: "calculator-variant"
+            id: button_output
+            text: "Calculate Total"
+            on_press: root.calculations()
+            pos_hint: {'center_x': .5}
+            font_size: dp(30)
+
+<RockLayout>:
+    name: "baserock"
+    on_pre_enter:
+        length_input.text = ""
+        width_input.text = ""
+        depth_input.text = ""
+        button_output.text = "Calculate Total"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(20)
+        padding: 0, 0, 0, 5
+        MDTopAppBar:
+            title: "BaseRock Calculations"
+            left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
+            right_action_items: [["image-filter-hdr"]]
+        MainLabels:
+            id: length
+            text: "Length in Feet"
+        FloatInput:
+            id: length_input
+        MainLabels:
+            id: width
+            text: "Width in Feet"
+        FloatInput:
+            id: width_input
+        MainLabels:
+            id: thickness
+            text: "Depth in Inches"
+        FloatInput:
+            id: depth_input
+        MDRoundFlatIconButton:
+            icon: "calculator-variant"
+            id: button_output
+            text: "Calculate Total"
+            on_press: root.calculations()
+            pos_hint: {'center_x': .5}
+            font_size: dp(30)
+
+<RebarLayout>:
+    name: "rebar"
+    on_pre_enter:
+        length_input.text = ""
+        width_input.text = ""
+        grid_input.text = ""
+        rebar_length_input.text = ""
+        button_output.text = "Calculate Total"
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(20)
+        padding: 0, 0, 0, 5
+        MDTopAppBar:
+            title: "Total Rebar Calculations"
+            left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
+            right_action_items: [["grid"]]
+        MainLabels:
+            id: length
+            text: "Length of Slab (ft)"
+        FloatInput:
+            id: length_input
+        MainLabels:
+            id: width
+            text: "Width of Slab (ft)"
+        FloatInput:
+            id: width_input
+        MainLabels:
+            id: rebar_grid
+            text: "Rebar Grid in Inches"
+        FloatInput:
+            id: grid_input
+        MainLabels:
+            id: rebar_length
+            text: "Length of Rebar (ft)"
+        FloatInput:
+            id: rebar_length_input
+        MDRoundFlatIconButton:
+            icon: "calculator-variant"
+            id: button_output
+            text: "Calculate Total"
+            on_press: root.calculations()
+            pos_hint: {'center_x': .5}
+            font_size: dp(30)
+<DowelLayout>:
+    name: "dowel"
+    on_pre_enter:
+        length_input.text = ""
+        width_input.text = ""
+        dowel_input.text = ""
+        button_output.text = "Calculate Total"
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(20)
+        padding: 0, 0, 0, 5
+        MDTopAppBar:
+            title: "Total Dowel Calculations"
+            left_action_items: [['arrow-left-bold',lambda x: app.change_screen("main")]]
+            right_action_items: [["grid"]]
+        MainLabels:
+            id: length
+            text: "Length of Slab (ft)"
+        FloatInput:
+            id: length_input
+        MainLabels:
+            id: width
+            text: "Width of Slab (ft)"
+        FloatInput:
+            id: width_input
+        MainLabels:
+            id: dowel
+            text: "Dowel Sepertation Distance (inches)"
+        FloatInput:
+            id: dowel_input
         MDRoundFlatIconButton:
             icon: "calculator-variant"
             id: button_output
